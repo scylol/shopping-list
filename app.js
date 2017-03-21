@@ -50,7 +50,8 @@ $(function() {
 
 	$('.shopping-item-delete').on('click', function(event){
 	 $(this).closest('li').remove();
-	 deleteItem(state, +($('#shopping-list-entry')));
+	 var index = +($(this).closest('li').attr('id'));
+	 deleteItem(state, index);
 	});
 
   });
