@@ -9,9 +9,12 @@ var addItem = function(state, item) {
 	state.items.push(item);
 }
 
- var deleteItem = function(state,itemIndex) {
-   	state.items.splice(itemIndex, 1);
-    }
+  var deleteItem = function(state, itemIndex) {
+  	state.items = state.items.filter(function(item, index) {
+    return index !== itemIndex;
+  });
+}
+  
 
 
 
@@ -37,6 +40,7 @@ var renderList = function(state, element) {
 
 
 //event listeners
+
 $(function() {
 
   $('#js-shopping-list-form').submit(function(event){
@@ -49,9 +53,12 @@ $(function() {
 	});
 
 	$('.shopping-item-delete').on('click', function(event){
-	 $(this).closest('li').remove();
-	 var index = +($(this).closest('li').attr('id'));
-	 deleteItem(state, index);
+	 
+	 var $listItem = $(this).closest('li');
+  	 var index = $listItem.index();
+
+  	$listItem.remove();
+  	deleteItem(state, index);
 	});
 
   });
